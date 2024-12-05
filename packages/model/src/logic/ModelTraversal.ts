@@ -519,8 +519,6 @@ export class ModelTraversal {
     /**
      * Filter a model's members as follows:
      *
-     *   - If the member is deprecated, ignore it
-     *
      *   - If there is only a single member of a given name, select that member
      *
      *   - If there are multiple members with the same name but there is no cluster throw an error
@@ -550,10 +548,6 @@ export class ModelTraversal {
 
         const selectedMembers = {} as Record<string, ValueModel>;
         for (const member of scope.members) {
-            if (member.isDeprecated) {
-                continue;
-            }
-
             if (conformantOnly && !member.conformance.isApplicable(features, supportedFeatures)) {
                 continue;
             }
